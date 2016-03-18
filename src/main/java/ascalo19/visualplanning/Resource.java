@@ -4,12 +4,10 @@ public class Resource {
 
 	private String id;
 	private String title;
-	private String eventColor;
 
-	public Resource(String id, String title, String eventColor) {
+	public Resource(String id, String title) {
 		this.id = id;
 		this.title = title;
-		this.eventColor = eventColor;
 	}
 
 	public String getId() {
@@ -26,13 +24,5 @@ public class Resource {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public String getEventColor() {
-		return eventColor;
-	}
-
-	public void setEventColor(String eventColor) {
-		this.eventColor = eventColor;
 	}
 }

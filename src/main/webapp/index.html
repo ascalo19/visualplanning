@@ -3,14 +3,17 @@
 <head>
 	<title>VisualPlanning</title>
 	<meta charset='utf-8'/>
-	<link href='js/fullcalendar-scheduler/lib/fullcalendar.min.css' rel='stylesheet'/>
-	<link href='js/fullcalendar-scheduler/lib/fullcalendar.print.css' rel='stylesheet' media='print'/>
-	<link href='js/fullcalendar-scheduler/scheduler.min.css' rel='stylesheet'/>
-	<script src='js/fullcalendar-scheduler/lib/moment.min.js'></script>
-	<script src='js/fullcalendar-scheduler/lib/jquery.min.js'></script>
-	<script src='js/fullcalendar-scheduler/lib/fullcalendar.min.js'></script>
-	<script src='js/fullcalendar-scheduler/lib/lang-all.js'></script>
-	<script src='js/fullcalendar-scheduler/scheduler.min.js'></script>
+	<link href='lib/bootstrap/css/bootstrap.min.css' rel='stylesheet'/>
+	<link href='lib/font-awesome/css/font-awesome.min.css' rel='stylesheet'/>
+	<link href='lib/jquery-ui-bootstrap/jquery-ui-1.10.3.custom.css' rel='stylesheet'/>
+	<link href='lib/fullcalendar-scheduler/lib/fullcalendar.min.css' rel='stylesheet'/>
+	<link href='lib/fullcalendar-scheduler/lib/fullcalendar.print.css' rel='stylesheet' media='print'/>
+	<link href='lib/fullcalendar-scheduler/scheduler.min.css' rel='stylesheet'/>
+	<script src='lib/fullcalendar-scheduler/lib/moment.min.js'></script>
+	<script src='lib/fullcalendar-scheduler/lib/jquery.min.js'></script>
+	<script src='lib/fullcalendar-scheduler/lib/fullcalendar.min.js'></script>
+	<script src='lib/fullcalendar-scheduler/lib/lang-all.js'></script>
+	<script src='lib/fullcalendar-scheduler/scheduler.min.js'></script>
 	<script>
 
 		$(function () { // document ready
@@ -18,8 +21,8 @@
 			$('#calendar').fullCalendar({
 				schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
 				lang: 'fr-ch',
-				now: '2016-01-07',
-				editable: true,
+//				now: '2016-01-07',
+				editable: false,
 				aspectRatio: 2.5,
 				scrollTime: '00:00',
 				header: {
@@ -29,7 +32,7 @@
 				},
 				defaultView: 'timelineMonth',
 				resourceAreaWidth: '15%',
-				resourceLabelText: 'Rooms',
+				resourceLabelText: 'Nom',
 				resources: 'rest/resources.json',
 				events: 'rest/events.json'
 			});
@@ -38,18 +41,9 @@
 
 	</script>
 	<style>
-
-		body {
-			margin: 0;
-			padding: 0;
-			font-family: "Lucida Grande", Helvetica, Arial, Verdana, sans-serif;
-			font-size: 14px;
-		}
-
 		#calendar {
 			margin: 20px;
 		}
-
 	</style>
 </head>
 <body>
