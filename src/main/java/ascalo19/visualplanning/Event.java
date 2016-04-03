@@ -8,14 +8,16 @@ public class Event {
 	private String end;
 	private String title;
 	private String color;
+	private String tooltip;
 
-	public Event(String id, String resourceId, String start, String end, String title, String color) {
+	public Event(String id, String resourceId, String start, String end, String title, String color, String tooltip) {
 		this.id = id;
 		this.resourceId = resourceId;
 		this.start = start;
 		this.end = end;
 		this.title = title;
 		this.color = color;
+		this.tooltip = tooltip;
 	}
 
 	public String getId() {
@@ -64,5 +66,13 @@ public class Event {
 
 	public void setColor(String color) {
 		this.color = color;
+	}
+
+	public String getTooltip() {
+		return tooltip;
+	}
+
+	public void setTooltip(String tooltip) {
+		this.tooltip = tooltip;
 	}
 }
