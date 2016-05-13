@@ -1,0 +1,75 @@
+<!doctype html>
+<html>
+<head>
+	<title>Visual Planning</title>
+	<meta charset='utf-8'/>
+	<link href='lib/bootstrap/css/bootstrap.min.css' rel='stylesheet'/>
+	<link href='lib/font-awesome/css/font-awesome.min.css' rel='stylesheet'/>
+	<link href='lib/jquery-ui-bootstrap/jquery-ui-1.10.3.custom.css' rel='stylesheet'/>
+	<link href='lib/fullcalendar-scheduler/lib/fullcalendar.min.css' rel='stylesheet'/>
+	<link href='lib/fullcalendar-scheduler/lib/fullcalendar.print.css' rel='stylesheet' media='print'/>
+	<link href='lib/fullcalendar-scheduler/lib/jquery.qtip.min.css' rel='stylesheet'/>
+	<link href='lib/fullcalendar-scheduler/scheduler.min.css' rel='stylesheet'/>
+	<script src='lib/fullcalendar-scheduler/lib/moment.min.js'></script>
+	<script src='lib/fullcalendar-scheduler/lib/jquery.min.js'></script>
+	<script src='lib/fullcalendar-scheduler/lib/jquery.qtip.min.js'></script>
+	<script src='lib/fullcalendar-scheduler/lib/jquery-ui.min.js'></script>
+	<script src='lib/fullcalendar-scheduler/lib/fullcalendar.min.js'></script>
+	<script src='lib/fullcalendar-scheduler/lib/lang-all.js'></script>
+	<script src='lib/fullcalendar-scheduler/scheduler.min.js'></script>
+	<script>
+
+		$(function () {
+			$('#calendar').fullCalendar({
+				schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
+				lang: 'fr-ch',
+//				now: '2016-01-07',
+				editable: false,
+				aspectRatio: 2.5,
+				scrollTime: '00:00',
+				header: {
+					left: 'today prev,next',
+					center: 'title',
+					right: 'timelineMonth, timelineWeek'
+				},
+				defaultView: 'timelineMonth',
+				views: {
+					timelineMonth: {
+						type: 'timeline',
+						duration: {month: 1},
+						slotDuration: '12:00',
+						minTime: '06:00',
+						maxTime: '18:00',
+						buttonText: 'Mois'
+					},
+					timelineWeek: {
+						type: 'timeline',
+						duration: {week: 1},
+						slotDuration: '12:00',
+						minTime: '06:00',
+						maxTime: '18:00',
+						buttonText: 'Semaine'
+					}
+				},
+				resourceAreaWidth: '10%',
+				resourceLabelText: 'Nom',
+				resources: 'rest/resources.json',
+				events: 'rest/events.json',
+				eventRender: function (event, element) {
+					element.qtip({
+						content: event.tooltip
+					});
+				}
+			});
+		});
+	</script>
+	<style>
+		#calendar {
+			margin: 20px;
+		}
+	</style>
+</head>
+<body>
+<div id='calendar'></div>
+</body>
+</html>
