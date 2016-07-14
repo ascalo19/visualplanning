@@ -72,7 +72,7 @@
 				<artifactId>launch4j-maven-plugin</artifactId>
 				<version>1.7.10</version>
 				<configuration>
-					<headerType>console</headerType>
+					<headerType>gui</headerType>
 					<outfile>${build.directory}/${artifactId}.exe</outfile>
 					<jar>${build.directory}/${artifactId}.jar</jar>
 					<errTitle>${name}</errTitle>

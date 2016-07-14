@@ -13,49 +13,45 @@ import java.awt.event.ActionEvent;
 @Component
 public class SystemTrayIcon {
 
-    @Autowired
-    private ApplicationContext applicationContext;
+	@Autowired
+	private ApplicationContext applicationContext;
 
-    public static void main(String[] args) {
-        new SystemTrayIcon().initSystemTray();
-    }
+	@PostConstruct
+	private void initSystemTray() {
+		try {
+			if (SystemTray.isSupported()) {
 
-    @PostConstruct
-    private void initSystemTray() {
-        try {
-            if (SystemTray.isSupported()) {
+				PopupMenu popup = new PopupMenu();
+				ImageIcon icon = new ImageIcon(getClass().getResource("/static/images/tray-orange.png"));
+				TrayIcon trayIcon = new TrayIcon(icon.getImage());
+				SystemTray tray = SystemTray.getSystemTray();
 
-                PopupMenu popup = new PopupMenu();
-                ImageIcon icon = new ImageIcon(getClass().getResource("/static/images/tray-white.png"));
-                TrayIcon trayIcon = new TrayIcon(icon.getImage());
-                SystemTray tray = SystemTray.getSystemTray();
+				MenuItem open = new MenuItem("Ouvrir");
+				open.addActionListener(new AbstractAction() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						ApplicationUtils.showUi();
+					}
+				});
 
-                MenuItem open = new MenuItem("Ouvrir");
-                open.addActionListener(new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        ApplicationUtils.showUi();
-                    }
-                });
+				MenuItem exit = new MenuItem("Quitter");
+				exit.addActionListener(new AbstractAction() {
+					@Override
+					public void actionPerformed(ActionEvent e) {
+						SpringApplication.exit(applicationContext);
+						tray.remove(trayIcon);
+					}
+				});
 
-                MenuItem exit = new MenuItem("Quitter");
-                exit.addActionListener(new AbstractAction() {
-                    @Override
-                    public void actionPerformed(ActionEvent e) {
-                        SpringApplication.exit(applicationContext);
-                        tray.remove(trayIcon);
-                    }
-                });
+				popup.add(open);
+				popup.add(exit);
+				trayIcon.setPopupMenu(popup);
+				trayIcon.setToolTip("Visual Planning");
+				tray.add(trayIcon);
 
-                popup.add(open);
-                popup.add(exit);
-                trayIcon.setPopupMenu(popup);
-                trayIcon.setToolTip("Visual Planning");
-                tray.add(trayIcon);
-
-            }
-        } catch (Exception e) {
-            // Ignore
-        }
-    }
+			}
+		} catch (Exception e) {
+			// Ignore
+		}
+	}
 }

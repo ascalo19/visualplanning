@@ -23,17 +23,24 @@
 			$('#calendar').fullCalendar({
 				schedulerLicenseKey: 'GPL-My-Project-Is-Open-Source',
 				lang: 'fr-ch',
-//				now: '2016-01-07',
 				editable: false,
 				aspectRatio: 2.5,
 				scrollTime: '00:00',
 				header: {
 					left: 'today prev,next',
 					center: 'title',
-					right: 'timelineMonth, timelineWeek'
+					right: 'timelineWeek, timelineMonth, timelineSemester'
 				},
 				defaultView: 'timelineMonth',
 				views: {
+					timelineWeek: {
+						type: 'timeline',
+						duration: {week: 1},
+						slotDuration: '12:00',
+						minTime: '06:00',
+						maxTime: '18:00',
+						buttonText: 'Semaine'
+					},
 					timelineMonth: {
 						type: 'timeline',
 						duration: {month: 1},
@@ -42,13 +49,13 @@
 						maxTime: '18:00',
 						buttonText: 'Mois'
 					},
-					timelineWeek: {
+					timelineSemester: {
 						type: 'timeline',
-						duration: {week: 1},
+						duration: {month: 6},
 						slotDuration: '12:00',
 						minTime: '06:00',
 						maxTime: '18:00',
-						buttonText: 'Semaine'
+						buttonText: 'Semestre'
 					}
 				},
 				resourceAreaWidth: '10%',

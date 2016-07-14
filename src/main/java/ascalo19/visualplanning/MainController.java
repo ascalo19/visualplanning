@@ -59,25 +59,29 @@ public class MainController {
 
 		int id = 1;
 		for (Resource resource : findResources()) {
-			FolderId folderId = new FolderId(WellKnownFolderName.Calendar, Mailbox.getMailboxFromString(resource.getTitle()));
-			CalendarFolder cf = CalendarFolder.bind(service, folderId);
-			FindItemsResults<Appointment> findResults = cf.findAppointments(new CalendarView(startDate, endDate));
-			for (Appointment a : findResults.getItems()) {
-				for (ApplicationConfig.Category category : config.getCategories()) {
-					if (a.getCategories().contains(category.getName())) {
-						Date eventStart;
-						Date eventEnd;
-						if (BooleanUtils.isTrue(a.getIsAllDayEvent())) {
-							eventStart = ApplicationUtils.setTime(a.getStart(), dayStart);
-							eventEnd = ApplicationUtils.setTime(a.getStart(), dayEnd);
-						} else {
-							eventStart = adjustStart(a.getStart());
-							eventEnd = adjustEnd(a.getEnd());
+			try {
+				FolderId folderId = new FolderId(WellKnownFolderName.Calendar, Mailbox.getMailboxFromString(resource.getTitle()));
+				CalendarFolder cf = CalendarFolder.bind(service, folderId);
+				FindItemsResults<Appointment> findResults = cf.findAppointments(new CalendarView(startDate, endDate));
+				for (Appointment a : findResults.getItems()) {
+					for (ApplicationConfig.Category category : config.getCategories()) {
+						if (a.getCategories().contains(category.getName())) {
+							Date eventStart;
+							Date eventEnd;
+							if (BooleanUtils.isTrue(a.getIsAllDayEvent())) {
+								eventStart = ApplicationUtils.setTime(a.getStart(), dayStart);
+								eventEnd = ApplicationUtils.setTime(a.getStart(), dayEnd);
+							} else {
+								eventStart = adjustStart(a.getStart());
+								eventEnd = adjustEnd(a.getEnd());
+							}
+							result.add(new Event(String.valueOf(id++), resource.getId(), formatter.format(eventStart), formatter.format(eventEnd), "", category.getColor(), a.getSubject() + "<br/>" + ApplicationUtils.timeFormat.format(a.getStart()) + " - " + ApplicationUtils.timeFormat.format(a.getEnd()) + "<br/>(" + category.getName() + ")"));
+							break;
 						}
-						result.add(new Event(String.valueOf(id++), resource.getId(), formatter.format(eventStart), formatter.format(eventEnd), "", category.getColor(), a.getSubject() + "<br/>" + ApplicationUtils.timeFormat.format(a.getStart()) + " - " + ApplicationUtils.timeFormat.format(a.getEnd()) + "<br/>(" + category.getName() + ")"));
-						break;
 					}
 				}
+			} catch (Exception e) {
+				System.err.println("Error finding appointments for " + resource.getTitle() + " : " + e.getMessage());
 			}
 		}
 
